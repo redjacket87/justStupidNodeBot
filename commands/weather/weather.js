@@ -1,15 +1,17 @@
 const bot = require('../../bot.js');
+const directions = require('./config');
 const axios = require('axios');
+
 const getWeather = (city) => {
 	const token = 'c9bafe1029374424545aac18f7641990';
 	const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${token}`;
 	return axios.get(url);
 };
 
-const getCoords = (coord)=>{
+const getCoords = ({lon, lat})=>{
 	return `Координаты:\n
-		Долгота: ${coord.lon}\n
-		Широта: ${coord.lat}`
+		Долгота: ${lon}\n
+		Широта: ${lat}`
 };
 
 const getTemperature = (temp)=>{
@@ -18,9 +20,8 @@ const getTemperature = (temp)=>{
 };
 
 const getWind = (wind) => {
-	const directions = require('./config');
 	let direction = '';
-	for(let item in directions){
+	for(const item in directions){
 		if(Math.abs(directions[item]-wind.deg) < 22.5 ||
 			Math.abs(directions[item] + 360 - wind.deg) < 22.5){
 				direction = item
@@ -55,7 +56,6 @@ module.exports = () => {
 				bot.sendMessage(chatId, sendingMsg);
 			})
 			.catch(()=>{
-				const chatId = msg.chat.id;
 				bot.sendMessage(chatId, 'что-то пошло не так...\n Проверьте правильность написания города.' +
 					'Города пишуться латиницей, без дифиса');
 			})

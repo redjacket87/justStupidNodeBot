@@ -11,7 +11,7 @@
 	"dependencies": {
 		"axios": "^0.16.1",
 		"mongoose": "^4.9.8",
-		"node-telegram-bot-api": "^0.27.0"
+		"node-telegram-bot-api": "^0.30.0"
 	},
 	"devDependencies": {
 		"eslint": "^3.19.0"

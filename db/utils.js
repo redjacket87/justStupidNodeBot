@@ -1,8 +1,9 @@
 'use strict';
+
 const mongoose = require('mongoose');
 const BotMsg = require('./schema').model;
 const dbConfig = require('./config');
-const censure = require('./censure').censure;
+const {censure} = require('./censure');
 module.exports = {
 	setUpConnection(){
 		mongoose.connect(`mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`);
@@ -15,23 +16,23 @@ module.exports = {
 		})
 	},
 
-	createMsg (msg) {
+	createMsg ({text}) {
 		const newMsg = new BotMsg({
-			msg: msg.text
+			msg: text
 		});
 		return newMsg.save();
 	},
 
 	checkDouble(result, msg){
-		result = result.filter((item)=>{
+		const filteredResult = result.filter((item)=>{
 			return item.indexOf(msg)!=-1
-	 	});
-		return result.length ? true :false;
+		});
+		return !!filteredResult.length
 	},
 
 	checkCensure(msg) {
 		return msg.toLowerCase().search(censure) != -1;
- 	},
+	},
 
 	closeConnection() {
 		mongoose.connection.close();
