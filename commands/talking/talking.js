@@ -6,7 +6,7 @@ const sendMsgFromDb = (result) => {
 };
 
 module.exports = () => {
-	bot.on('message', function (msg) {
+	bot.on('message',  (msg) => {
 		const chatId = msg.chat.id;
 		if(msg.text.indexOf('/') == 0) {
 			return

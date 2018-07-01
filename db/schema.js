@@ -1,11 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const {Schema, model} = require('mongoose');
 const BotSchema = new Schema({
-		msg:{
+		msg: {
 			type: String,
 			required: true
-		 }
+		}
 });
 module.exports = {
-	model: mongoose.model('BotMsg', BotSchema)
+	model: model('BotMsg', BotSchema)
 };

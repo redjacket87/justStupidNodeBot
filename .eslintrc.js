@@ -116,7 +116,6 @@ module.exports = {
 				"no-extra-label": "error",
 				"no-extra-parens": "error",
 				"no-floating-decimal": "error",
-				"no-implicit-coercion": "error",
 				"no-implicit-globals": "error",
 				"no-implied-eval": "error",
 				"no-inline-comments": "error",
@@ -165,7 +164,6 @@ module.exports = {
 				"no-shadow-restricted-names": "error",
 				"no-spaced-func": "error",
 				"no-sync": "error",
-				"no-tabs": "error",
 				"no-template-curly-in-string": "error",
 				"no-ternary": "error",
 				"no-throw-literal": "error",
@@ -191,10 +189,6 @@ module.exports = {
 				"no-with": "error",
 				"nonblock-statement-body-position": "error",
 				"object-curly-newline": "off",
-				"object-curly-spacing": [
-						"error",
-						"always"
-				],
 				"object-property-newline": "error",
 				"object-shorthand": "error",
 				"one-var": "off",
