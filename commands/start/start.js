@@ -3,7 +3,7 @@ const {InlineKeyboard} = require('node-telegram-keyboard-wrapper');
 
 const buttonsConfig = require('./buttonConfig');
 const bot = require('../../bot');
-const {weatherDescription, talking, menuTitle} = require('../texts.js')
+const {weatherDescription, talking, menuTitle, exchange} = require('../texts.js')
 
 const inlineKeyboard = new InlineKeyboard();
 
@@ -25,6 +25,9 @@ module.exports = () => {
                 break;
             case '_talking_':
                 bot.sendMessage(id, talking);
+                break;
+            case '_exchange_':
+                bot.sendMessage(id, exchange);
                 break;
             default:
                 break

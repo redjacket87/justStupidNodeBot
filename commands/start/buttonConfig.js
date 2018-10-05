@@ -6,5 +6,9 @@ module.exports = [
     {
         text: 'Поговорим?',
         callback_data: '_talking_'
+    },
+    {
+        text: ' Курс популярных валют',
+        callback_data: '_exchange_'
     }
 ];
