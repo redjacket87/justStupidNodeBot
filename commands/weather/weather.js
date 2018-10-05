@@ -9,14 +9,14 @@ const getWeather = (city) => {
 };
 
 const getCoords = ({lon, lat})=>{
-	return `Координаты:\n
-		Долгота: ${lon}\n
-		Широта: ${lat}`
+	return `🌐 Координаты:\n
+		\tДолгота: ${lon}\n
+		\tШирота: ${lat}`
 };
 
 const getTemperature = (temp)=>{
 	const toCels = (temp - 273.15).toFixed(1);
-	return `\nТемпература: ${toCels}С`
+	return `\n🌡️ Температура: ${toCels}С`
 };
 
 const getWind = (wind) => {
@@ -27,11 +27,11 @@ const getWind = (wind) => {
 				direction = item
 		}
 	}
-	return `\nВетер: ${direction} ${wind.speed.toFixed(1)}м/c`
+	return `\n🌬️ Ветер: ${direction} ${wind.speed.toFixed(1)}м/c`
 };
 
 module.exports = () => {
-	bot.onText(/\/погода/, (msg, match) =>{
+	bot.onText(/\/weather/, (msg, match) =>{
 		const chatId = msg.chat.id;
 		const pattern = /[a-z]/;
 		let city = '';

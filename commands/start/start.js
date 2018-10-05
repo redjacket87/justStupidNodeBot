@@ -1,12 +1,33 @@
+
+const {InlineKeyboard} = require('node-telegram-keyboard-wrapper');
+
+const buttonsConfig = require('./buttonConfig');
 const bot = require('../../bot');
+const {weatherDescription, talking, menuTitle} = require('../texts.js')
+
+const inlineKeyboard = new InlineKeyboard();
+
+
 
 module.exports = () => {
-    bot.onText(/\/start/, function(msg) {
+    bot.onText(/\/start/, (msg) => {
         const chatId = msg.chat.id;
-        const menu = `Я умею следдующие команды:
-                 /погода Погода более чем в 200 000 городов мира. Например /погода Syktyvkar
-                        А ещё со мной можно просто говорить, напишите мне что-нибудь`
-        bot.sendMessage(chatId, menu);
-        bot.sendMessage(286641361, menu);
+        buttonsConfig.forEach((row) => inlineKeyboard.addRow(row));
+        bot.sendMessage(chatId, menuTitle, inlineKeyboard.export());
     });
+
+    bot.on('callback_query', (query) => {
+        const {data, from: {id}} = query;
+
+        switch (data){
+            case '_weather_':
+                bot.sendMessage(id, weatherDescription);
+                break;
+            case '_talking_':
+                bot.sendMessage(id, talking);
+                break;
+            default:
+                break
+        }
+    })
 };

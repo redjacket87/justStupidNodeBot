@@ -1,10 +1,12 @@
-const {Schema, model} = require('mongoose');
-const BotSchema = new Schema({
+const mongoose = require('mongoose');
+
+const BotSchema = new mongoose.Schema({
 		msg: {
 			type: String,
 			required: true
 		}
 });
+
 module.exports = {
-	model: model('BotMsg', BotSchema)
+	model: mongoose.model('BotMsg', BotSchema)
 };

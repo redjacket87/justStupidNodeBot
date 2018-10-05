@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const BotMsg = require('./schema').model;
 const dbConfig = require('./config');
 const {censure} = require('./censure');
+
 module.exports = {
 	setUpConnection(){
 		mongoose.connect(`mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`);
