@@ -1,6 +1,11 @@
 const bot = require('../../bot');
 const dbUtils = require('../../db/utils');
 
+/**
+ *
+ * @param {Array<Object>} result Набор доступных для ответ сообщений из БД
+ * @returns {Object} Объект сообщения
+ */
 const sendMsgFromDb = (result) => {
 	const rand = Math.floor(Math.random()*result.length);
 	return result[rand];

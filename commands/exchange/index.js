@@ -1,6 +1,9 @@
 const bot = require('../../bot.js');
 const axios = require('axios');
 
+/**
+ * @returns {Promise<Object>}
+ */
 const getCurrencyExchangeData = async () => {
     let data;
     try {
@@ -9,6 +12,22 @@ const getCurrencyExchangeData = async () => {
         data = null;
     }
     return data;
+};
+
+/**
+ * @param {Object} currencyList Объект с опциями доступных валют
+ * @returns {string}
+ */
+const getCurrencyList = (currencyList) => {
+    const currencyListKeys = Object.keys(currencyList);
+
+    return currencyListKeys.reduce((acc, key) => {
+        const {Value, Name, Nominal} = currencyList[key];
+
+        const message = `💱 ${Value.toFixed(2)} рубля за ${Nominal} ${Name} \n`;
+
+        return acc + message;
+    }, ``);
 };
 
 module.exports =  () => {
@@ -21,16 +40,24 @@ module.exports =  () => {
         let message;
 
         if (!currencyExchangeData) {
-            message = 'Похоже, что сервер упал. Попробуйте еще раз'
+            bot.sendMessage(chatId, 'Похоже, что сервер упал. Попробуйте еще раз');
+            return;
+        }
+
+        const currencyList = currencyExchangeData.data.Valute;
+
+        if (!currency) {
+            message = getCurrencyList(currencyList);
         }
         else if (!currency.match(pattern)) {
             message = 'Введите код валюты в правильном формате - 3 латинских буквы, например USD';
         }
-        else if (!currencyExchangeData.data.Valute[currency]) {
+        else if (!currencyList[currency]) {
             message = 'Либо это не популярная валюта и ее нет в нашем списке. Либо вы опечатались';
         }
         else {
-            message = currencyExchangeData.data.Valute[currency].Value;
+            const {Value, Name, Nominal} = currencyExchangeData.data.Valute[currency]
+            message = `💱 ${Value.toFixed(2)} рубля за ${Nominal} ${Name} \n`;
         }
 
         bot.sendMessage(chatId, message);
