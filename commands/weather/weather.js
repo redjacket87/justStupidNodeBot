@@ -2,6 +2,11 @@ const bot = require('../../bot.js');
 const directions = require('./config');
 const axios = require('axios');
 
+/**
+ *
+ * @param {String} city город запроса
+ * @returns {Зкщьшы}
+ */
 const getWeather = (city) => {
 	const token = 'c9bafe1029374424545aac18f7641990';
 	const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${token}`;

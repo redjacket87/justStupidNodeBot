@@ -1,5 +1,7 @@
 const bot = require('../../bot');
 const dbUtils = require('../../db/utils');
+const logger = require('../../logger');
+const listOfCommands = require('../listOfCommands');
 
 /**
  *
@@ -17,10 +19,19 @@ module.exports = () => {
         const chatId = msg.chat.id;
         const {first_name: firstName = '', last_name: lastName = ''} = msg.from;
         const isNonAvailableWord = dbUtils.checkCensure(receivedMessage);
-        console.dir(`${firstName} ${lastName}: ${receivedMessage}`);
+        const isCommand = listOfCommands.some((command) => {
+            return receivedMessage.indexOf(command) !== -1;
+        });
+        logger.log('info', `${firstName} ${lastName}: ${receivedMessage}`);
 
-        // Если это комманда игнорируем ее
+        // Если это известная комманда она будет обработана другим коллбеком
+        if (isCommand) {
+            return;
+        }
+
+        // Если это  неизвестная комманда отправляем на /start
         if (receivedMessage.indexOf('/') == 0) {
+            bot.sendMessage(chatId, 'Попробуйте набрать /start для того чтобы узнать что я умею');
             return;
         }
 
@@ -46,4 +57,4 @@ module.exports = () => {
                 dbUtils.closeConnection();
             })
     })
-}
+};

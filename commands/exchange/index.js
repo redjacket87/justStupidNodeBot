@@ -14,17 +14,18 @@ const getCurrencyExchangeData = async () => {
     return data;
 };
 
+
 /**
  * @param {Object} currencyList Объект с опциями доступных валют
  * @returns {string}
  */
-const getCurrencyList = (currencyList) => {
+const getFinalMessageByCurrencyList = (currencyList) => {
     const currencyListKeys = Object.keys(currencyList);
 
     return currencyListKeys.reduce((acc, key) => {
         const {Value, Name, Nominal} = currencyList[key];
 
-        const message = `💱 ${Value.toFixed(2)} рубля за ${Nominal} ${Name} \n`;
+        const message = `💱 ${Value.toFixed(2)} рубля за ${Nominal} ${Name}.\n\n`;
 
         return acc + message;
     }, ``);
@@ -47,7 +48,7 @@ module.exports =  () => {
         const currencyList = currencyExchangeData.data.Valute;
 
         if (!currency) {
-            message = getCurrencyList(currencyList);
+            message = getFinalMessageByCurrencyList(currencyList);
         }
         else if (!currency.match(pattern)) {
             message = 'Введите код валюты в правильном формате - 3 латинских буквы, например USD';
@@ -56,8 +57,8 @@ module.exports =  () => {
             message = 'Либо это не популярная валюта и ее нет в нашем списке. Либо вы опечатались';
         }
         else {
-            const {Value, Name, Nominal} = currencyExchangeData.data.Valute[currency]
-            message = `💱 ${Value.toFixed(2)} рубля за ${Nominal} ${Name} \n`;
+            const exectCurrencyObject = currencyExchangeData.data.Valute[currency];
+            message = getFinalMessageByCurrencyList({currency: exectCurrencyObject})
         }
 
         bot.sendMessage(chatId, message);

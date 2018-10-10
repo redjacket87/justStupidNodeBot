@@ -5,12 +5,10 @@ const buttonsConfig = require('./buttonConfig');
 const bot = require('../../bot');
 const {weatherDescription, talking, menuTitle, exchange} = require('../texts.js')
 
-const inlineKeyboard = new InlineKeyboard();
-
-
 
 module.exports = () => {
     bot.onText(/\/start/, (msg) => {
+        const inlineKeyboard = new InlineKeyboard();
         const chatId = msg.chat.id;
         buttonsConfig.forEach((row) => inlineKeyboard.addRow(row));
         bot.sendMessage(chatId, menuTitle, inlineKeyboard.export());
