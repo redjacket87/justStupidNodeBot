@@ -10,5 +10,9 @@ module.exports = [
     {
         text: ' Курс популярных валют',
         callback_data: '_exchange_'
+    },
+    {
+        text: ' Курс Биткоина',
+        callback_data: '_bitcoin_exchange_'
     }
 ];

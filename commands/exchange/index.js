@@ -1,19 +1,6 @@
 const bot = require('../../bot.js');
-const axios = require('axios');
-
-/**
- * @returns {Promise<Object>}
- */
-const getCurrencyExchangeData = async () => {
-    let data;
-    try {
-        data = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-    } catch {
-        data = null;
-    }
-    return data;
-};
-
+const {getThirdPartyAPIData} = require('../utils');
+const {dailyCurrencyApiUrl} = require('../config');
 
 /**
  * @param {Object} currencyList Объект с опциями доступных валют
@@ -33,7 +20,7 @@ const getFinalMessageByCurrencyList = (currencyList) => {
 
 module.exports =  () => {
     bot.onText(/\/exchange/, async (msg, match) => {
-        const currencyExchangeData = await getCurrencyExchangeData();
+        const currencyExchangeData = await getThirdPartyAPIData(dailyCurrencyApiUrl);
         const chatId = msg.chat.id;
         const {input} = match;
         const currency = input.split(' ')[1];

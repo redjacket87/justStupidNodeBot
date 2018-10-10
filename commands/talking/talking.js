@@ -1,7 +1,7 @@
 const bot = require('../../bot');
 const dbUtils = require('../../db/utils');
 const logger = require('../../logger');
-const listOfCommands = require('../listOfCommands');
+const {listOfCommands} = require('../utils');
 
 /**
  *

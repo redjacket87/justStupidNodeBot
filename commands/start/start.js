@@ -3,7 +3,8 @@ const {InlineKeyboard} = require('node-telegram-keyboard-wrapper');
 
 const buttonsConfig = require('./buttonConfig');
 const bot = require('../../bot');
-const {weatherDescription, talking, menuTitle, exchange} = require('../texts.js')
+const {weatherDescription, talking, menuTitle, exchange} = require('../texts.js');
+const bitcoinExchangeRate = require('../bitcoin/bitcoinExchangeRate');
 
 
 module.exports = () => {
@@ -26,6 +27,12 @@ module.exports = () => {
                 break;
             case '_exchange_':
                 bot.sendMessage(id, exchange);
+                break;
+            case '_bitcoin_exchange_':
+                bitcoinExchangeRate()
+                    .then((message) => {
+                        bot.sendMessage(id, message);
+                    });
                 break;
             default:
                 break
