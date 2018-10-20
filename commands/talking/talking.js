@@ -46,7 +46,9 @@ module.exports = () => {
             .then((result) => {
                 const listOfMessages = result.map(({msg}) => msg);
                 const hasDouble = dbUtils.checkDouble(listOfMessages, receivedMessage);
-                const sendingMsg = sendMsgFromDb(listOfMessages);
+                const sendingMsg = listOfMessages.length
+                    ? sendMsgFromDb(listOfMessages)
+                    : 'Привет!';
 
                 if (!hasDouble){
                     dbUtils.createMsg(msg);
