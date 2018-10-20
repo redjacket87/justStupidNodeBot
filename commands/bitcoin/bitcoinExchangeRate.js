@@ -1,5 +1,5 @@
 const {getThirdPartyAPIData} = require('../utils');
-const {bitcoinExchangeRate} = require('../config');
+const {bitcoinExchangeRate} = require('../urls');
 
 
 module.exports =  async () => {

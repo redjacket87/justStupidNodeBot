@@ -1,6 +1,6 @@
 const bot = require('../../bot.js');
 const {getThirdPartyAPIData} = require('../utils');
-const {dailyCurrencyApiUrl} = require('../config');
+const {dailyCurrencyApiUrl} = require('../urls');
 
 /**
  * @param {Object} currencyList Объект с опциями доступных валют
