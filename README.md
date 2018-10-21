@@ -8,5 +8,5 @@ module.exports = {
 
 Then just run your project make npm start.
 If you run server on you local PC and have polling error just use VPN server for traffic.
-Current version of bot running here @justStupidNodeBot.
+Current version of bot running here @juststupidbot.
 Enjoy!
